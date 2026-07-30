@@ -1,5 +1,7 @@
 services: 
   api: 
+    image:
+      registry.digitalocean.com/air-quality-reg/api:latest
     build: 
       context: . 
       dockerfile: Dockerfile.api 
@@ -15,7 +17,8 @@ services:
       retries: 5 
     restart: unless-stopped 
  
-  frontend: 
+  frontend:
+    image: registry.digitalocean.com/air-quality-reg/frontend:latest
     build: 
       context: . 
       dockerfile: Dockerfile.frontend 
