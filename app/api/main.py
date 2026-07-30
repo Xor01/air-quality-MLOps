@@ -69,7 +69,7 @@ def predict(request: PredictionRequest):
         "prediction": prediction,
     }
 
-    log_dir = Path("data/predictions")
+    log_dir = Path("data/monitoring")
     log_dir.mkdir(parents=True, exist_ok=True)
 
     pd.DataFrame([log_entry]).to_csv(
