@@ -26,8 +26,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
 from src.air_quality.features import FEATURES
+from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
+TRACKING_URL = getenv("TRACKING_URL", "http://localhost:5000")
 TARGET = "high_pollution_next_hour"
 DATA_PATH = "data/processed/model_table.parquet"
 RANDOM_STATE = 42
@@ -395,7 +400,7 @@ def main():
         ),
     }
 
-    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_tracking_uri(TRACKING_URL)
     mlflow.set_experiment("riyadh-air-quality")
     mlflow.sklearn.autolog(disable=True)
 
