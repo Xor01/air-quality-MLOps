@@ -1,0 +1,13 @@
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.git
+.gitignore
+.env
+mlartifacts
+mlruns
+mlflow.db
+data
+reports
+*.md
