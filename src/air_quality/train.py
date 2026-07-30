@@ -25,7 +25,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
-from air_quality.features import FEATURES
+from src.air_quality.features import FEATURES
 
 
 TARGET = "high_pollution_next_hour"

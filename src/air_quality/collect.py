@@ -23,7 +23,7 @@ def fetch_json(url: str, params: dict[str, object]) -> dict:
 
 def main() -> None:
     end_date = date.today() - timedelta(days=5)
-    start_date = end_date - timedelta(days=90)
+    start_date = end_date - timedelta(days=1095)
     common = {
         "latitude": LATITUDE,
         "longitude": LONGITUDE,
