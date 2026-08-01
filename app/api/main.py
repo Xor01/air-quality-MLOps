@@ -84,4 +84,5 @@ def predict(request: PredictionRequest):
         "prediction_probability": round(probability, 4),
         "threshold": threshold,
         "model": model_name,
+        "risk_level": "high" if prediction else "normal",
     }
