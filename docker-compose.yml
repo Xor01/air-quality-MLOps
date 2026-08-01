@@ -2,7 +2,7 @@ services:
   api:
     image: registry.digitalocean.com/air-quality-reg/api:latest
     volumes:
-      - ./models:/app/models
+      - models_data:/app/models
       - app_data:/app/data
       - monitoring_data:/app/data/monitoring
     environment:
@@ -44,6 +44,7 @@ services:
     restart: unless-stopped
 
 volumes:
+  models_data:
   app_data:
   monitoring_data:
   mlflow_data:
