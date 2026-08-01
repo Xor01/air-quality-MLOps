@@ -1,49 +1,49 @@
-services: 
-  api: 
-    image:
-      registry.digitalocean.com/air-quality-reg/api:latest
-    build: 
-      context: . 
-      dockerfile: Dockerfile.api 
-    volumes: 
-      - ./models:/app/models 
+services:
+  api:
+    image: registry.digitalocean.com/air-quality-reg/api:latest
+    volumes:
+      - ./models:/app/models
       - app_data:/app/data
       - monitoring_data:/app/data/monitoring
     environment:
       TRACKING_URL: http://mlflow:5000
     ports:
       - "8000:8000"
-    healthcheck: 
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"] 
-      interval: 15s 
-      timeout: 5s 
-      retries: 5 
-    restart: unless-stopped 
- 
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   frontend:
     image: registry.digitalocean.com/air-quality-reg/frontend:latest
-    build: 
-      context: . 
-      dockerfile: Dockerfile.frontend 
-    environment: 
+    environment:
       API_URL: http://api:8000
-    ports: 
+    ports:
       - "8501:8501"
-    depends_on: 
-      api: 
-        condition: service_healthy 
-    restart: unless-stopped 
-  mlflow: 
-      image: ghcr.io/mlflow/mlflow:latest 
-      command: mlflow server --host 0.0.0.0 --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*" --cors-allowed-origins "https://air-quality.xor01.com, https://mlflow-air-quality.xor01.com" --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --default-artifact-root /mlflow/artifacts 
-      volumes: 
-          - mlflow_data:/mlflow 
-      ports: 
-        - "5000:5000" 
-      restart: unless-stopped 
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*"
+      --cors-allowed-origins "https://air-quality.xor01.com,https://mlflow-air-quality.xor01.com"
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+    volumes:
+      - mlflow_data:/mlflow
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
 
 volumes:
   app_data:
   monitoring_data:
   mlflow_data:
-
