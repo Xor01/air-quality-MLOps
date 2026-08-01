@@ -45,6 +45,32 @@ if submitted:
         st.error(f"API request failed: {error}") 
  
 st.divider() 
+@st.cache_data(ttl=300)
+def fetch_monitoring_report():
+    response = requests.get(f"{API_URL}/monitoring", timeout=30)
+
+    if response.headers.get("content-type", "").startswith("text/html"):
+        return response.content
+
+    return None
+
+
+try:
+    report = fetch_monitoring_report()
+except requests.RequestException as error:
+    report = None
+    st.error(f"Could not load monitoring report: {error}")
+
+if report:
+    st.download_button(
+        "Download monitoring report",
+        report,
+        file_name="monitoring.html",
+        mime="text/html",
+    )
+else:
+    st.caption("Monitoring report not generated yet.")
+
 try: 
     status = requests.get(f"{API_URL}/health", timeout=5).json() 
     st.caption(f"API status: {status['status']}") 

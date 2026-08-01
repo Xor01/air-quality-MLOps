@@ -5,6 +5,7 @@ services:
       - models_data:/app/models
       - app_data:/app/data
       - monitoring_data:/app/data/monitoring
+      - reports_data:/app/reports
     environment:
       TRACKING_URL: http://mlflow:5000
     ports:
@@ -44,6 +45,7 @@ services:
     restart: unless-stopped
 
 volumes:
+  reports_data:
   models_data:
   app_data:
   monitoring_data:

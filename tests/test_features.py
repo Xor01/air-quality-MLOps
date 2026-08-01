@@ -29,3 +29,24 @@ def test_predict():
     assert "model" in body
     assert "threshold" in body
     assert "risk_level" in body
+
+def test_monitoring_report_missing(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+
+    response = client.get("/monitoring")
+
+    assert response.status_code == 200
+    assert "error" in response.json()
+
+
+def test_monitoring_returns_report(monkeypatch, tmp_path):
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    (reports / "monitoring.html").write_text("<html>drift report</html>")
+    monkeypatch.chdir(tmp_path)
+
+    response = client.get("/monitoring")
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/html")
+    assert "drift report" in response.text

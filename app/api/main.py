@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
+from fastapi.responses import FileResponse
 import joblib
 import pandas as pd
 from fastapi import FastAPI
@@ -86,3 +87,10 @@ def predict(request: PredictionRequest):
         "model": model_name,
         "risk_level": "high" if prediction else "normal",
     }
+
+@app.get("/monitoring")
+def monitoring():
+    report_path = Path("reports/monitoring.html")
+    if not report_path.exists():
+        return {"error": "Monitoring report not found. Run the monitoring script first."}
+    return FileResponse("reports/monitoring.html", media_type="text/html")

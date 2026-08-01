@@ -1,10 +1,10 @@
-from pathlib import Path 
- 
-import pandas as pd 
-from evidently import Report 
-from evidently.presets import DataDriftPreset, DataSummaryPreset 
- 
- 
+from pathlib import Path
+
+import pandas as pd
+from evidently import Report
+from evidently.presets import DataDriftPreset, DataSummaryPreset
+
+
 def main() -> None: 
     reference = pd.read_csv("data/monitoring/reference.csv") 
     current_path = Path("data/monitoring/predictions.csv") 
@@ -18,8 +18,8 @@ def main() -> None:
         reference_data=reference[shared_columns], 
         current_data=current[shared_columns], 
     ) 
-    Path("reports").mkdir(exist_ok=True) 
-    snapshot.save_html("reports/monitoring.html") 
+    Path("reports").mkdir(exist_ok=True)
+    snapshot.save_html("reports/monitoring.html")
     print("Saved reports/monitoring.html")
 
 if __name__ == "__main__":
