@@ -36,7 +36,7 @@ services:
       --cors-allowed-origins "https://air-quality.xor01.com,https://mlflow-air-quality.xor01.com"
       --port 5000
       --backend-store-uri sqlite:////mlflow/mlflow.db
-      --default-artifact-root /mlflow/artifacts
+      --default-artifact-root /mlflow/artifacts --workers 2
     volumes:
       - mlflow_data:/mlflow
     ports:
