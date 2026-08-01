@@ -196,9 +196,6 @@ Run lint checks:
 uv run ruff check .
 ```
 
-## Notes
+## Conclusion
 
-- The model is trained for one Riyadh coordinate: `24.7136, 46.6753`.
-- The API requires lag and rolling features from the caller.
-- Automated drift monitoring is not implemented yet; `src/air_quality/monitoring.py` is currently empty.
-- The pollution threshold is a project setting and is not medical advice or an official warning.
+This project demonstrates a complete MLOps workflow, from collecting and processing air-quality data to training, evaluating, tracking, and deploying a machine learning model. It provides a practical foundation for building reliable air-quality prediction systems and can be extended with automated monitoring and retraining.
