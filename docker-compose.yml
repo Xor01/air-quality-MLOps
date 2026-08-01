@@ -6,10 +6,13 @@ services:
       context: . 
       dockerfile: Dockerfile.api 
     volumes: 
-      - ./models:/app/models:ro 
-      - monitoring_data:/app/data/monitoring 
-    ports: 
-      - "8000:8000" 
+      - ./models:/app/models 
+      - app_data:/app/data
+      - monitoring_data:/app/data/monitoring
+    environment:
+      TRACKING_URL: http://mlflow:5000
+    ports:
+      - "8000:8000"
     healthcheck: 
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"] 
       interval: 15s 
@@ -39,7 +42,8 @@ services:
         - "5000:5000" 
       restart: unless-stopped 
 
-volumes: 
-  monitoring_data: 
-  mlflow_data: 
+volumes:
+  app_data:
+  monitoring_data:
+  mlflow_data:
 
