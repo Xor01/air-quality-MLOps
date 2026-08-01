@@ -32,7 +32,7 @@ services:
     restart: unless-stopped 
   mlflow: 
       image: ghcr.io/mlflow/mlflow:latest 
-      command: mlflow server --host 0.0.0.0 --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*" --cors-allowed-origins "https://air-quality.xor01.com" --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --default-artifact-root /mlflow/artifacts 
+      command: mlflow server --host 0.0.0.0 --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*" --cors-allowed-origins "https://air-quality.xor01.com, https://mlflow-air-quality.xor01.com" --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --default-artifact-root /mlflow/artifacts 
       volumes: 
           - mlflow_data:/mlflow 
       ports: 
