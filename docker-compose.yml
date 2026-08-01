@@ -32,7 +32,7 @@ services:
     command: >
       mlflow server
       --host 0.0.0.0
-      --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*"
+      --allowed-hosts "mlflow-air-quality.xor01.com,localhost:*,mlflow:*"
       --cors-allowed-origins "https://air-quality.xor01.com,https://mlflow-air-quality.xor01.com"
       --port 5000
       --backend-store-uri sqlite:////mlflow/mlflow.db
